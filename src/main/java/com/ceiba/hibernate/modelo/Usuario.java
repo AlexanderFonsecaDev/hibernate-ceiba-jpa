@@ -16,13 +16,14 @@ public class Usuario implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@Column(name = "nombre")
-	private String nombre;
 	
+	@Id
 	@Column(name = "identificacion")
 	private String identificacion;
 	
+	@Column(name = "nombre")
+	private String nombre;
+		
 	@Column(name = "rol")
 	private String rol;
 
