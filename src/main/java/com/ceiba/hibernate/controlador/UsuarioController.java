@@ -15,12 +15,18 @@ public class UsuarioController {
 
 	private EntityManagerFactory emf;
 	
-	public UsuarioController() {
-		this.emf = Persistence.createEntityManagerFactory("aplicacion");
-		this.manager = emf.createEntityManager();
+	public UsuarioController(EntityManager manager,EntityManagerFactory emf) {
+		this.emf = emf;
+		this.manager = manager;
+	}
+	
+	private void iniciar() {
+		
 	}
 	
 	public List<Usuario> listarUsuarios(){
+		emf = Persistence.createEntityManagerFactory("aplicacion");
+		manager = emf.createEntityManager();
 		@SuppressWarnings("unchecked")
 		List<Usuario> usuarios = (List<Usuario>) manager.createQuery("FROM Usuario").getResultList();
 		return usuarios;
@@ -28,7 +34,9 @@ public class UsuarioController {
 	
 	public String registrarUsuario(String nombre,String identificacion,String rol) {
 		try {
-			
+			this.iniciar();
+			emf = Persistence.createEntityManagerFactory("aplicacion");
+			manager = emf.createEntityManager();
 			List<Usuario> usuarios = listarUsuarios();
 			for(Usuario u:usuarios) {
 				if(u.getIdentificacion().equalsIgnoreCase(identificacion)) {
@@ -48,6 +56,9 @@ public class UsuarioController {
 	}
 	
 	public String modificarUsuario(String identificacion,String nombre,String rol) {
+		this.iniciar();
+		emf = Persistence.createEntityManagerFactory("aplicacion");
+		manager = emf.createEntityManager();
 		Usuario u = manager.find(Usuario.class, identificacion);
 		manager.getTransaction().begin();
 		u.setNombre(nombre);
@@ -57,9 +68,20 @@ public class UsuarioController {
 		return "Cambio en el usuario registrado con exito";
 	}
 	
-	public String borrarUsuario() {
-		
+	public String buscarUsuario(String identificacion) {
+		this.iniciar();
+		emf = Persistence.createEntityManagerFactory("aplicacion");
+		manager = emf.createEntityManager();
+		List<Usuario> usuarios = listarUsuarios();
+		for(Usuario n:usuarios) {
+			if(n.getIdentificacion().equalsIgnoreCase(identificacion)) {
+				return n.getNombre();
+			}
+		}
+		return null;
 	}
+	
+	
 	
 
 }

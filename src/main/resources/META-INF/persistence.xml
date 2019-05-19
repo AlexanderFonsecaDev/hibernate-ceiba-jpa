@@ -7,6 +7,8 @@
   <persistence-unit name="aplicacion">
   
   <class>com.ceiba.hibernate.modelo.Usuario</class>
+  <class>com.ceiba.hibernate.modelo.Libro</class>
+  <class>com.ceiba.hibernate.modelo.Prestamo</class>
   
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
