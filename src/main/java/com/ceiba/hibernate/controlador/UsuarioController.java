@@ -75,6 +75,7 @@ public class UsuarioController {
 		List<Usuario> usuarios = listarUsuarios();
 		for(Usuario n:usuarios) {
 			if(n.getIdentificacion().equalsIgnoreCase(identificacion)) {
+				System.out.println(n);
 				return n.getNombre();
 			}
 		}

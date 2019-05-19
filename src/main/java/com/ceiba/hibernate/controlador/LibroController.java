@@ -11,11 +11,12 @@ import com.ceiba.hibernate.modelo.Libro;
 public class LibroController {
 
 	private EntityManager manager;
-	private EntityManagerFactory emf;
 
-	public LibroController() {
-		this.emf = Persistence.createEntityManagerFactory("aplicacion");
-		this.manager = emf.createEntityManager();
+	private EntityManagerFactory emf;
+	
+	public LibroController(EntityManager manager,EntityManagerFactory emf) {
+		this.emf = emf;
+		this.manager = manager;
 	}
 
 	public List<Libro> listarLibros() {
